@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Professional CRM Design System - All colors, gradients, fonts, etc defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Backgrounds & text */
+    --background: 210 30% 12%;        /* dark blue-gray background */
+    --foreground: 0 0% 95%;           /* light gray text */
+
+    --background-dark: 210 30% 16%;
+    --background-light: 210 30% 22%;        
+  
+    /* Primary (brand cyan) */
+    --primary: 187 95% 52%;            /* #0dcffa */
+    --primary-foreground: 0 0% 12%;
+    --primary-hover: 187 95% 42%;
+
+    /* Secondary (deep blue) */
+    --secondary: 223 65% 27%;          /* #243d6a */
+    --secondary-foreground: 0 0% 95%;
+
+    /* Muted / low-contrast */
+    --muted: 210 30% 18%;              /* darker gray for subtle elements */
+    --muted-foreground: 0 0% 60%;
+
+    /* Destructive (red) */
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 0 0% 95%;
+
+    /* Borders, inputs, rings */
+    --border: 210 30% 25%;
+    --input: 210 30% 16%;
+    --ring: 187 95% 52%;               /* cyan focus ring */
+
+    --radius: 0.75rem;
+
+    --facebook-primary: 217 91% 60%; /* deep blue user messages */ 
+    --instagram-primary: 330 81% 60%; /* deep pink user messages */ 
+    --whatsapp-primary: 142 70% 45%; /* deep green user messages */ 
+  }
+
+}
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Add to your global CSS */
+.ql-container.ql-snow {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.ql-toolbar.ql-snow {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.ql-editor {
+  min-height: 60px;
+  max-height: 250px;
+  max-width: 730px;
+  padding-right: 1rem; /* Matches your pr-12 */
+}
+
+/* Custom scrollbar for Quill */
+.ql-container .ql-editor {
+  scrollbar-width: medium;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+.scrollbar-thin {
+  scrollbar-width: medium;
+  scrollbar-color: hsl(var(--border)) transparent;
+}
+
+.max-height {
+  max-height: calc(100vh - 3.5rem);
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+.chat-wallpaper {
+  background-image: url('@/assets/chatWallpaper.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #2D4053;
+  border-radius: 9999px;
+  transition: background-color 0.2s;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #2D4053;
+}
+
+.custom-scrollbar {
+  scrollbar-width:auto;
+  scrollbar-color: #2D4053 transparent;
+}
+
+
