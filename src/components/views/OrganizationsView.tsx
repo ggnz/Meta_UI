@@ -29,6 +29,7 @@ import {
   deleteOrganization,
   getOrganizationUsers,
 } from "@/api/organizations";
+import { SessionExpiredError } from "@/api/client";
 import { Label } from "@/components/ui/label";
 
 // Types
@@ -92,11 +93,14 @@ export function OrganizationsView() {
       }
     } catch (error) {
       console.error("Error loading organizations:", error);
-      toast({
-        title: "Error",
-        description: "No se pudieron cargar las organizaciones",
-        variant: "destructive",
-      });
+      // Don't show error toast if session expired (it's already handled by the interceptor)
+      if (!(error instanceof SessionExpiredError)) {
+        toast({
+          title: "Error",
+          description: "No se pudieron cargar las organizaciones",
+          variant: "destructive",
+        });
+      }
       setOrganizations([]);
     } finally {
       setLoading(false);
@@ -179,6 +183,11 @@ export function OrganizationsView() {
     } catch (error: any) {
       console.error("Error saving organization:", error);
 
+      // Don't show error toast if session expired (it's already handled by the interceptor)
+      if (error instanceof SessionExpiredError) {
+        return;
+      }
+
       // Check for duplicate name error
       if (
         error?.response?.data?.message?.includes(
@@ -216,6 +225,11 @@ export function OrganizationsView() {
       });
     } catch (error: any) {
       console.error("Error deleting organization:", error);
+
+      // Don't show error toast if session expired (it's already handled by the interceptor)
+      if (error instanceof SessionExpiredError) {
+        return;
+      }
 
       if (
         error?.response?.data?.message?.includes("tiene usuarios asociados")

@@ -18,6 +18,7 @@ import {
   type ConnectionsResponse,
 } from "@/api/connections";
 import { PlatformCard } from "@/components/connections/PlatformCard";
+import { SessionExpiredError } from "@/api/client";
 
 const PLATFORM_CONFIG = {
   facebook: {
@@ -67,10 +68,13 @@ export function ConnectionsView() {
       setPlatforms(mapped);
     } catch (err) {
       console.error("Error fetching connections", err);
+      if (!(err instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudieron cargar las conexiones.",
+        variant: "destructive",
       });
+      }
     } finally {
       setIsLoading(false);
     }

@@ -20,6 +20,7 @@ import {
 import { getContact } from "@/api/contacts";
 import { useRealtime } from "@/api/realtime/RealtimeProvider";
 import logo from "@/assets/vayneBWLogo.png";
+import { SessionExpiredError } from "@/api/client";
 
 interface UserInfo {
   id: string;
@@ -153,11 +154,13 @@ export function MessagesView() {
       setUserInfo(mappedUserInfo);
     } catch (err) {
       console.error("Error fetching user info:", err);
+      if (!(err instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudo cargar la información del contacto",
         variant: "destructive",
       });
+      }
       setUserInfo(null);
     } finally {
       setIsLoadingUserInfo(false);
@@ -218,11 +221,13 @@ export function MessagesView() {
       setConversations(mapped);
     } catch (err) {
       console.error(err);
+      if (!(err instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudieron cargar las conversaciones",
         variant: "destructive",
       });      
+      }
     } finally {
       setIsLoadingConversations(false);
     }
@@ -271,11 +276,13 @@ export function MessagesView() {
         );
       } catch (err) {
         console.error(err);
+        if (!(err instanceof SessionExpiredError)) {
         toast({
           title: "Error al cargar mensajes",
           description: "No se pudieron obtener los mensajes.",
           variant: "destructive",
         });
+        }
       } finally {
         setIsLoading(false);
       }
@@ -312,11 +319,13 @@ export function MessagesView() {
         ),
       }));
     } catch (err) {
+      if (!(err instanceof SessionExpiredError)) {
       toast({
         title: "Error al enviar mensaje",
         description: "No se pudo enviar el mensaje.",
         variant: "destructive",
       });
+      }
       setMessages((prev) => ({
         ...prev,
         [conversationId]: prev[conversationId].map((m) =>
@@ -365,18 +374,20 @@ export function MessagesView() {
         title: "Mensaje reenviado",
         description: "Tu mensaje se envió correctamente.",
       });
-    } catch {
+    } catch (err){
       setMessages((prev) => ({
         ...prev,
         [activeConversationId]: prev[activeConversationId].map((m) =>
           m.id === messageId ? { ...m, status: "failed" } : m
         ),
       }));
+      if (!(err instanceof SessionExpiredError)) {
       toast({
         title: "Error al reenviar",
         description: "No se pudo reenviar el mensaje.",
         variant: "destructive",
       });
+      }
     }
   };
 

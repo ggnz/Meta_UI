@@ -59,6 +59,7 @@ import { cn } from "@/lib/utils";
 import { isValidEmail } from "@/utils/mail";
 import { getOrganizations } from "@/api/organizations";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { SessionExpiredError } from "@/api/client";
 
 interface Tag {
   id: number;
@@ -211,11 +212,13 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
       setContacts(contactsData);
     } catch (error) {
       console.error("Error loading contacts:", error);
+      if (!(error instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudieron cargar los contactos",
         variant: "destructive",
       });
+      }
     } finally {
       setLoading(false);
     }
@@ -228,11 +231,13 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
       setOrganizations(data);
     } catch (error) {
       console.error("Error loading organizations:", error);
+      if (!(error instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudieron cargar las organizaciones",
         variant: "destructive",
       });
+      }
     } finally {
       setLoadingOrganizations(false);
     }
@@ -245,11 +250,13 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
         setAvailableTags(Array.isArray(allTagsFromDB) ? allTagsFromDB : []);
       } catch (error) {
         console.error("Error loading all tags:", error);
+        if (!(error instanceof SessionExpiredError)) {
         toast({
           title: "Error",
           description: "No se pudieron cargar todas las etiquetas",
           variant: "destructive",
         });
+        }
       }
     };
 
@@ -408,11 +415,13 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
       });
     } catch (error) {
       console.error("Error creating contact:", error);
+      if (!(error instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudo crear el contacto",
         variant: "destructive",
       });
+      }
     }
   };
 
@@ -479,11 +488,13 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
       });
     } catch (error) {
       console.error("Error updating contact:", error);
+      if (!(error instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudo actualizar el contacto",
         variant: "destructive",
       });
+      }
     }
   };
 
@@ -511,11 +522,13 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
       });
     } catch (error) {
       console.error("Error deleting contact:", error);
+      if (!(error instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudo eliminar el contacto",
         variant: "destructive",
       });
+      }
     }
   };
 

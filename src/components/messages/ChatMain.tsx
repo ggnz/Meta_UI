@@ -11,6 +11,7 @@ import {
   FileText,
   Video,
   Send,
+  Mic,
 } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
 import { Textarea } from "../ui/textarea";
@@ -680,18 +681,36 @@ export function ChatMain({
             </ul>
           )}
 
-          <button
-            onClick={handleSendMessage}
-            disabled={!message.trim() || isLoading}
-            title="Enviar"
-            className={cn(
-              "h-10 w-10 rounded-full flex items-center justify-center text-foreground flex-shrink-0", 
-              platformConfig.bgColor,
-              "hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
-            )}
-          >
-            <Send className="h-5 w-5" />
-          </button>
+          {!message.trim() ? (
+            <button
+              onClick={() => {
+                // TODO: Implement microphone functionality
+                console.log("Microphone clicked");
+              }}
+              disabled={isLoading}
+              title="Grabar audio"
+              className={cn(
+                "h-10 w-10 rounded-full flex items-center justify-center text-foreground flex-shrink-0", 
+                platformConfig.bgColor,
+                "hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
+              )}
+            >
+              <Mic className="h-5 w-5" />
+            </button>
+          ) : (
+            <button
+              onClick={handleSendMessage}
+              disabled={!message.trim() || isLoading}
+              title="Enviar"
+              className={cn(
+                "h-10 w-10 rounded-full flex items-center justify-center text-foreground flex-shrink-0", 
+                platformConfig.bgColor,
+                "hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
+              )}
+            >
+              <Send className="h-5 w-5" />
+            </button>
+          )}
         </div>
       </div>
     </div>

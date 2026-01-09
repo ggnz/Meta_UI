@@ -56,6 +56,7 @@ import {
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { SessionExpiredError } from "@/api/client";
 
 // Types
 interface User {
@@ -138,11 +139,13 @@ export function UsersView() {
       setUsers(Array.isArray(data?.data) ? data.data : []);
     } catch (error) {
       console.error("Error loading users:", error);
+      if (!(error instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudieron cargar los usuarios",
         variant: "destructive",
       });
+      }
     } finally {
       setLoading(false);
     }
@@ -155,11 +158,13 @@ export function UsersView() {
       setOrganizations(data);
     } catch (error) {
       console.error("Error loading organizations:", error);
+      if (!(error instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudieron cargar las organizaciones",
         variant: "destructive",
-      });
+      }); 
+      }
     } finally {
       setLoadingOrganizations(false);
     }
@@ -287,11 +292,13 @@ export function UsersView() {
       resetForm();
     } catch (error) {
       console.error("Error saving user:", error);
+      if (!(error instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudo guardar el usuario",
         variant: "destructive",
       });
+      }
     }
   };
 
@@ -306,12 +313,14 @@ export function UsersView() {
       });
     } catch (error) {
       console.error("Error deleting user:", error);
+      if (!(error instanceof SessionExpiredError)) {
       setIsDeleteUserOpen(false);
       toast({
         title: "Error",
         description: "No se pudo eliminar el usuario",
         variant: "destructive",
       });
+      }
     }
   };
 

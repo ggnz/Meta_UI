@@ -46,6 +46,7 @@ import {
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { SessionExpiredError } from "@/api/client";
 
 // Types
 interface Tag {
@@ -109,11 +110,13 @@ export function TagsView() {
       setTags(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Error loading tags:", error);
+      if (!(error instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudieron cargar las etiquetas",
         variant: "destructive",
       });
+      }
       setTags([]);
     } finally {
       setLoading(false);
@@ -129,11 +132,13 @@ export function TagsView() {
       setOrganizations(data);
     } catch (error) {
       console.error("Error loading organizations:", error);
+      if (!(error instanceof SessionExpiredError)) {
       toast({
         title: "Error",
         description: "No se pudieron cargar las organizaciones",
         variant: "destructive",
       });
+      }
     } finally {
       setLoadingOrganizations(false);
     }
@@ -215,6 +220,11 @@ export function TagsView() {
     } catch (error: any) {
       console.error("Error saving tag:", error);
 
+      // Don't show error toast if session expired (it's already handled by the interceptor)
+      if (error instanceof SessionExpiredError) {
+        return;
+      }
+
       // Check for duplicate name error
       if (
         error?.response?.data?.message?.includes(
@@ -248,6 +258,10 @@ export function TagsView() {
       });
     } catch (error) {
       console.error("Error deleting tag:", error);
+      // Don't show error toast if session expired (it's already handled by the interceptor)
+      if (error instanceof SessionExpiredError) {
+        return;
+      }
       setIsDeleteTagOpen(false);
       toast({
         title: "Error",

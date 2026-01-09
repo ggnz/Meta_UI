@@ -51,6 +51,7 @@ import {
 import { Check, ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { SessionExpiredError } from "@/api/client";
 
 // Types
 interface Template {
@@ -150,11 +151,13 @@ export function MetaTemplatesView() {
       setTemplates(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Error loading templates:", error);
-      toast({
-        title: "Error",
-        description: "No se pudieron cargar las plantillas",
-        variant: "destructive",
-      });
+      if (!(error instanceof SessionExpiredError)) {
+        toast({
+          title: "Error",
+          description: "No se pudieron cargar las plantillas",
+          variant: "destructive",
+        });
+      }
       setTemplates([]);
     } finally {
       setLoading(false);
@@ -170,11 +173,13 @@ export function MetaTemplatesView() {
     setOrganizations(data);
   } catch (error) {
     console.error("Error loading organizations:", error);
-    toast({
-      title: "Error",
-      description: "No se pudieron cargar las organizaciones",
-      variant: "destructive",
-    });
+    if (!(error instanceof SessionExpiredError)) {
+      toast({
+        title: "Error",
+        description: "No se pudieron cargar las organizaciones",
+        variant: "destructive",
+      });
+    }
   } finally {
     setLoadingOrganizations(false);
   }
@@ -278,11 +283,13 @@ export function MetaTemplatesView() {
       toast({ title: "Plantilla creada", description: "Se creó exitosamente" });
     } catch (error) {
       console.error("Error creating template:", error);
-      toast({
-        title: "Error",
-        description: error.message || "No se pudo crear la plantilla",
-        variant: "destructive",
-      });
+      if (!(error instanceof SessionExpiredError)) {
+        toast({
+          title: "Error",
+          description: error.message || "No se pudo crear la plantilla",
+          variant: "destructive",
+        });
+      }
     }
   };
 
@@ -294,12 +301,15 @@ export function MetaTemplatesView() {
       toast({ title: "Eliminada", description: "Plantilla eliminada" });
     } catch (error) {
       console.error("Error deleting template:", error);
+      if (!(error instanceof SessionExpiredError)) {
+        toast({
+          title: "Error",
+          description: error.message || "No se pudo eliminar la plantilla",
+          variant: "destructive",
+        });
+      }
       setTemplates((prev) => prev.filter((t) => t.id !== id));
       setIsDeleteTemplateOpen(false);
-      toast({
-        title: "Eliminada",
-        description: "No se pudo eliminar en API",
-      });
     }
   };
 
