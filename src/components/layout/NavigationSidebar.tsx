@@ -116,10 +116,10 @@ export function NavigationSidebar() {
                 to={item.path}
                 className={cn(
                   "w-full p-4 flex flex-col items-center gap-1 text-xs transition-colors group",
-                  "hover:bg-background/50 hover:text-primary",
+                  "hover:bg-background/20 hover:text-primary",
                   isActive
-                    ? "bg-background-light text-primary border-r-4 border-primary"
-                    : "text-sidebar-foreground"
+                    ? "bg-background/10 text-background border-r-4 border-primary"
+                    : "text-background"
                 )}
                 title={item.label}
               >
@@ -139,7 +139,7 @@ export function NavigationSidebar() {
         <div className="border-t border-border p-4">
           <button
             onClick={() => setOpen(true)}
-            className="w-full p-2 flex flex-col items-center gap-1 text-xs text-sidebar-foreground hover:bg-background/50 hover:text-destructive transition-colors rounded-md"
+            className="w-full p-2 flex flex-col items-center gap-1 text-xs text-background hover:bg-background/50 hover:text-destructive transition-colors rounded-md"
           >
             <LogOut className="w-4 h-4" />
             <span>Salir</span>
@@ -156,10 +156,10 @@ export function NavigationSidebar() {
               key={item.id}
               to={item.path}
               className={cn(
-                "flex flex-col items-center justify-center p-2 text-xs transition-colors",
+                "flex text-sidebar-foreground flex-col items-center justify-center p-2 text-xs transition-colors",
                 isActive
                   ? "text-primary"
-                  : "text-sidebar-foreground hover:text-primary"
+                  : "text-background hover:text-primary"
               )}
               title={item.label}
             >
@@ -169,7 +169,7 @@ export function NavigationSidebar() {
                   <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full" />
                 )}
               </div>
-              <span className="truncate text-[10px]">{item.label}</span>
+               {/*<span className="truncate text-[10px]">{item.label}</span>*/}
             </Link>
           );
         })}
@@ -177,7 +177,7 @@ export function NavigationSidebar() {
         {/* Logout icon */}
         <button
           onClick={() => setOpen(true)}
-          className="flex flex-col items-center justify-center p-2 text-sidebar-foreground hover:text-destructive transition-colors"
+          className="hidden sm:flex flex-col items-center justify-center p-2 text-background hover:text-destructive transition-colors"
           title="Salir"
         >
           <LogOut className="w-5 h-5" />

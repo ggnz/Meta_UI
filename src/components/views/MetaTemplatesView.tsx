@@ -314,7 +314,7 @@ export function MetaTemplatesView() {
   };
 
   const renderPreviewBubble = (template: Template) => {
-    const colorClass = BUBBLE_COLORS[template.platform] || "bg-muted";
+    const colorClass = BUBBLE_COLORS[template.platform] || "bg-background-light ";
     let previewContent = template.content;
 
     template.variables?.forEach((variable) => {
@@ -329,11 +329,11 @@ export function MetaTemplatesView() {
         <div
           className={`${colorClass} text-white px-4 py-2 rounded-sm shadow-sm max-w-[600px] min-w-[100px] break-words`}
         >
-          <p className="text-sm text-foreground whitespace-pre-line">
+          <p className="text-sm text-background whitespace-pre-line">
             {previewContent}
           </p>
           <div className="flex justify-end mt-2">
-            <span className="text-xs text-foreground">
+            <span className="text-xs text-background">
               {new Date().toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
@@ -650,7 +650,7 @@ export function MetaTemplatesView() {
         <ScrollArea className="h-full">
           {filteredTemplates.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-64 text-center px-4">
-              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
+              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
                 <Plus className="w-8 h-8 text-muted-foreground" />
               </div>
               <h3 className="text-lg font-semibold mb-2">
@@ -788,7 +788,7 @@ export function MetaTemplatesView() {
                 open={isDeleteTemplateOpen}
                 onOpenChange={setIsDeleteTemplateOpen}
               >
-                <DialogContent className="bg-background-dark border border-border rounded-md w-96 max-w-[90vw] p-0 overflow-hidden">
+                <DialogContent className="border border-border rounded-md w-96 max-w-[90vw] p-0 overflow-hidden">
                   <DialogHeader className="p-6 pb-4">
                     <div className="text-center">
                       <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -808,7 +808,7 @@ export function MetaTemplatesView() {
                   </DialogHeader>
 
                   <div className="px-6">
-                    <div className="bg-muted/30 rounded-md p-3">
+                    <div className="bg-background-light rounded-md p-3">
                       <p className="mb-2 text-sm">
                         Se eliminará permanentemente:
                       </p>
@@ -846,9 +846,9 @@ export function MetaTemplatesView() {
               {/* Mobile Cards */}
               <div className="md:hidden space-y-4 mt-4 mx-4">
                 {filteredTemplates.map((template) => (
-                  <div
+                  <Card
                     key={template.id}
-                    className="bg-background-dark border border-border rounded-lg p-4 flex flex-col gap-2"
+                    className="p-4 flex flex-col gap-2"
                   >
                     <div className="flex justify-between items-start">
                       <span className="font-medium">{template.name}</span>
@@ -903,11 +903,11 @@ export function MetaTemplatesView() {
                           <div className="space-y-4">
                             <div>
                               <Label>Contenido</Label>
-                              <p className="text-sm mt-1 p-3 bg-muted rounded-md">
+                              <p className="text-sm mt-1 p-3 bg-background-light rounded-md">
                                 {template.content}
                               </p>
                             </div>
-                            <div>
+                            <div className="text-muted-foreground">
                               <Label>Vista Previa</Label>
                               <p className="text-xs text-muted-foreground">
                                 {template.command}
@@ -931,7 +931,7 @@ export function MetaTemplatesView() {
                       </Button>
                     </div>
                     
-                  </div>
+                  </Card>
                 ))}
               </div>
             </>

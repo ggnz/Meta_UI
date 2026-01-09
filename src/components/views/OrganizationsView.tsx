@@ -363,7 +363,7 @@ export function OrganizationsView() {
         <ScrollArea className="h-full">
           {filteredOrganizations.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-64 text-center px-4">
-              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
+              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
                 <Building className="w-8 h-8 text-muted-foreground" />
               </div>
               <h3 className="text-lg font-semibold mb-2">
@@ -443,7 +443,7 @@ export function OrganizationsView() {
                 open={isDeleteConfirmOpen}
                 onOpenChange={setIsDeleteConfirmOpen}
               >
-                <DialogContent className="bg-background-dark border border-border rounded-md w-96 max-w-[90vw] p-0 overflow-hidden">
+                <DialogContent>
                   <DialogHeader className="p-6 pb-4">
                     <div className="text-center">
                       <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -489,7 +489,7 @@ export function OrganizationsView() {
                         </div>
                       )}
 
-                    <div className="bg-muted/30 rounded-md p-3">
+                    <div className="bg-background-light rounded-md p-3">
                       <p className="mb-2 text-sm">
                         Se eliminarán permanentemente:
                       </p>
@@ -540,7 +540,7 @@ export function OrganizationsView() {
               {/* Mobile Cards */}
               <div className="md:hidden space-y-4 mt-4 mx-4">
                 {filteredOrganizations.map((org) => (
-                  <Card key={org.organization_id} className="p-4">
+                  <Card key={org.organization_id} className="p-4 flex flex-col gap-2">
                     <div className="flex justify-between items-start mb-3">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">

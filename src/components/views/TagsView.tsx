@@ -448,7 +448,7 @@ export function TagsView() {
         <ScrollArea className="h-full">
           {filteredTags.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-64 text-center px-4">
-              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
+              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
                 <TagIcon className="w-8 h-8 text-muted-foreground" />
               </div>
               <h3 className="text-lg font-semibold mb-2">
@@ -542,7 +542,7 @@ export function TagsView() {
                   </DialogHeader>
 
                   <div className="px-6">
-                    <div className="bg-muted/30 rounded-md p-3">
+                    <div className="bg-background-light rounded-md p-3">
                       <p className="mb-2 text-sm">
                         Se eliminará permanentemente:
                       </p>

@@ -69,7 +69,7 @@ export function ResetPasswordView({ onViewChange }: ResetPasswordViewProps) {
 
   if (isSubmitted) {
     return (
-      <div className="chat-wallpaper flex items-center justify-center min-h-full bg-background p-4">
+      <div className="bg-background-light flex items-center justify-center min-h-full bg-background p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">
