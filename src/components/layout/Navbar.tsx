@@ -72,13 +72,13 @@ export function Navbar({ onViewChange }: NavbarProps) {
         {user && (
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold text-muted-foreground">
+              <span className="text-sm font-semibold text-background">
                 {user.name}
               </span>
             </div>
 
             <div
-              className="w-8 h-8 bg-muted rounded-full flex items-center justify-center cursor-pointer hover:bg-background transition-colors"
+              className="w-8 h-8 bg-primary rounded-full flex items-center justify-center cursor-pointer hover:bg-primary/20 transition-colors"
               onClick={() => setIsSettingsOpen(true)}
               title="Configuración y Perfil"
             >

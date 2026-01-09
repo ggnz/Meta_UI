@@ -226,7 +226,7 @@ export function UserInfoPanel({
         <div className="p-6 border-b border-border">
           <button
             title="Volver"
-            className="p-2 rounded-full bg-background text-sidebar-foreground hover:text-primary shadow-md mb-4"
+            className="p-2 rounded-full bg-background text-secondary hover:text-primary shadow-md mb-4 text-muted"
             onClick={onClose}
           >
             <ChevronLeft />
@@ -254,17 +254,17 @@ export function UserInfoPanel({
         <div className="p-6 border-b border-border">
           <button
             title="Volver"
-            className="p-2 rounded-full bg-background text-sidebar-foreground hover:text-primary shadow-md mb-4"
+            className="p-2 rounded-full bg-background text-secondary hover:text-primary shadow-md mb-4"
             onClick={onClose}
           >
             <ChevronLeft />
           </button>
           <div className="text-center">
-            <div className="h-[100px] w-[100px] bg-muted rounded-full flex items-center justify-center mx-auto mb-4">
-              <User className="w-10 h-10 text-muted-foreground" />
+            <div className="h-[100px] w-[100px] bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+              <User className="w-10 h-10 text-foreground" />
             </div>
-            <h2 className="text-xl font-semibold mb-2">No hay información</h2>
-            <p className="text-muted-foreground">Selecciona un contacto para ver su información</p>
+            <h2 className="text-xl text-muted font-semibold mb-2">No hay información</h2>
+            <p className="text-muted/80">Selecciona un contacto para ver su información</p>
           </div>
         </div>
       </div>
@@ -277,16 +277,16 @@ export function UserInfoPanel({
       <div className="p-4 border-b border-border">
         <button
           title="Volver"
-          className="p-2 rounded-full bg-background text-sidebar-foreground hover:text-primary shadow-md mb-4"
+          className="p-2 rounded-full bg-background text-secondary hover:text-primary shadow-md mb-4"
           onClick={onClose}
         >
           <ChevronLeft />
         </button>
         <div className="text-center">
           <div className="relative inline-block mb-3">
-            <Avatar className="h-[100px] w-[100px] mx-auto border border-background-light">
+            <Avatar className="h-[100px] w-[100px] mx-auto border background-light">
               <AvatarImage src={userInfo.avatar} />
-              <AvatarFallback className="text-dark-foreground bg-background-dark text-[30px]">
+              <AvatarFallback className="text-[32px]">
                 {userInfo.name
                   .split(" ")
                   .map((n) => n[0])
@@ -312,14 +312,15 @@ export function UserInfoPanel({
             </div>
           </div>
 
-          <h2 className="text-xl font-semibold mt-3 mb-1">{userInfo.name}</h2>
-          <p className="text-muted-foreground text-sm">
+          <h2 className="text-xl text-muted font-semibold mt-3 mb-1">{userInfo.name}</h2>
+          <p className="text-muted/70 font-semibold text-sm">
             {userInfo.company || "Sin empresa"}
           </p>
         </div>
 
         <Button 
           className="w-full mt-4" 
+          variant="secondary"
           size="sm" 
           onClick={handleEditClick}
         >
@@ -329,28 +330,28 @@ export function UserInfoPanel({
       </div>
 
       {/* Contact Information */}
-      <Card className="m-4 shadow-card">
+      <Card className="m-4 shadow-card bg-background">
         <CardHeader>
-          <CardTitle className="text-base">Información de Contacto</CardTitle>
+          <CardTitle className="text-base text-muted">Información de Contacto</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="flex items-center space-x-3">
-            <Mail className="h-4 w-4 text-muted-foreground" />
-            <span className="text-sm">{userInfo.email}</span>
+            <Mail className="h-4 w-4 text-muted" />
+            <span className="text-sm text-muted">{userInfo.email}</span>
           </div>
           <div className="flex items-center space-x-3">
-            <Phone className="h-4 w-4 text-muted-foreground" />
-            <span className="text-sm">{userInfo.phone}</span>
+            <Phone className="h-4 w-4 text-muted" />
+            <span className="text-sm text-muted">{userInfo.phone}</span>
           </div>
           <div className="flex items-center space-x-3">
-            <Building className="h-4 w-4 text-muted-foreground" />
-            <span className="text-sm">
+            <Building className="h-4 w-4 text-muted" />
+            <span className="text-sm text-muted">
               {userInfo.company || "No especificado"}
             </span>
           </div>
           <div className="flex items-center space-x-3">
-            <MapPin className="h-4 w-4 text-muted-foreground" />
-            <span className="text-sm">
+            <MapPin className="h-4 w-4 text-muted" />
+            <span className="text-sm text-muted">
               {userInfo.location || "No especificado"}
             </span>
           </div>
@@ -361,7 +362,7 @@ export function UserInfoPanel({
                 <Badge
                   key={index}
                   variant="secondary"
-                  className="text-xs"
+                  className="text-xs text-background"
                 >
                   {tag}
                 </Badge>
@@ -372,15 +373,15 @@ export function UserInfoPanel({
       </Card>
 
       {/* Activity */}
-      <Card className="m-4 shadow-card">
+      <Card className="m-4 shadow-card bg-background">
         <CardHeader>
-          <CardTitle className="text-base">Última Actividad</CardTitle>
+          <CardTitle className="text-base text-muted">Última Actividad</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-              <span className="text-sm">{userInfo.lastActivity || "N/A"}</span>
+              <Calendar className="h-4 w-4 text-muted" />
+              <span className="text-sm text-muted">{userInfo.lastActivity || "N/A"}</span>
             </div>
           </div>
         </CardContent>
@@ -388,16 +389,16 @@ export function UserInfoPanel({
 
       {/* Edit Contact Modal */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="max-w-full sm:max-w-2xl">
+        <DialogContent className="max-w-full text-muted sm:max-w-2xl bg-background">
           <DialogHeader>
             <DialogTitle>Editar Contacto</DialogTitle>
           </DialogHeader>
 
           {editContact && (
-            <div className="space-y-4">
+            <div className="space-y-4 text-muted">
               {/* Nombre y Teléfono */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 ">
+                <div className="space-y-2 ">
                   <Label htmlFor="edit-name">Nombre *</Label>
                   <Input
                     id="edit-name"
@@ -498,7 +499,7 @@ export function UserInfoPanel({
                         : "Seleccionar etiquetas..."}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-80 py-2 px-2 bg-background space-y-2">
+                  <PopoverContent className="w-80 py-2 px-2 bg-background text-muted space-y-2">
                     <Command>
                       <CommandInput placeholder="Buscar etiquetas..." />
                       <CommandList>
@@ -506,7 +507,6 @@ export function UserInfoPanel({
                         <CommandGroup>
                           {availableTags.map((tag) => (
                             <CommandItem
-                              className="cursor-pointer"
                               key={tag.id}
                               onSelect={() => {
                                 setEditContact((prev) =>
@@ -520,10 +520,12 @@ export function UserInfoPanel({
                                     : prev
                                 );
                               }}
+                              className="cursor-pointer text-muted             
+                              "
                             >
                               <Check
                                 className={cn(
-                                  "mr-2 h-4 w-4",
+                                  "mr-2 h-4 w-4 ",
                                   editContact.tags.some((t) => t.id === tag.id)
                                     ? "opacity-100"
                                     : "opacity-0"
@@ -545,7 +547,7 @@ export function UserInfoPanel({
                       <Badge
                         key={tag.id}
                         variant="secondary"
-                        className="flex items-center gap-1"
+                        className="flex items-center gap-1 text-background"
                       >
                         {tag.name}
                         <X
@@ -586,7 +588,7 @@ export function UserInfoPanel({
                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-full p-0 bg-background-light">
+                  <PopoverContent className="w-full p-0 bg-primary text-muted">
                     <Command>
                       <CommandInput placeholder="Buscar plataforma..." />
                       <CommandList>
@@ -609,7 +611,7 @@ export function UserInfoPanel({
                                   );
                                   setEditPlatformComboboxOpen(false);
                                 }}
-                                className="flex items-center gap-2"
+                                className="flex items-center gap-2 text-muted"
                               >
                                 <PlatformIcon className="w-4 h-4" />
                                 {platform.label}
@@ -641,7 +643,7 @@ export function UserInfoPanel({
             >
               Cancelar
             </Button>
-            <Button onClick={handleSaveEditContact} disabled={isUpdating}>
+            <Button onClick={handleSaveEditContact} disabled={isUpdating} variant="secondary">
               {isUpdating ? "Guardando..." : "Guardar Cambios"}
             </Button>
           </DialogFooter>

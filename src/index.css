@@ -9,31 +9,26 @@ All colors MUST be HSL.
 @layer base {
   :root {
     /* Backgrounds & text */
-    --background: 210 30% 12%;        /* dark blue-gray background */
-    --foreground: 0 0% 95%;           /* light gray text */
+    --background: 0 0% 100%;        /* dark blue-gray background */
+    --foreground: 210 30% 16%;      /* light gray text */
 
-    --background-dark: 210 30% 16%;
-    --background-light: 210 30% 22%;        
+    --background-dark: 232 55% 36%;
+    --background-light: 232 31% 90%;   
   
     /* Primary (brand cyan) */
-    --primary: 187 95% 52%;            /* #0dcffa */
-    --primary-foreground: 0 0% 12%;
-    --primary-hover: 187 95% 42%;
+    --primary: 185 66% 51%;         
 
     /* Secondary (deep blue) */
-    --secondary: 223 65% 27%;          /* #243d6a */
-    --secondary-foreground: 0 0% 95%;
+    --secondary: 232 55% 36%;        
 
     /* Muted / low-contrast */
-    --muted: 210 30% 18%;              /* darker gray for subtle elements */
-    --muted-foreground: 0 0% 60%;
-
+    --muted: 0 0% 31%;             /* darker gray for subtle elements */
     /* Destructive (red) */
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 95%;
 
     /* Borders, inputs, rings */
-    --border: 210 30% 25%;
+    --border: 0 0% 86%;
     --input: 210 30% 16%;
     --ring: 187 95% 52%;               /* cyan focus ring */
 

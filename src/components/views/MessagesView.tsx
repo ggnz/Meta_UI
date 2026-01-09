@@ -106,11 +106,11 @@ export function MessagesView() {
           />
       </div>
       
-      <p className="text-muted-foreground max-w-sm text-xl leading-relaxed mb-2">
+      <p className="text-muted max-w-sm text-xl leading-relaxed mb-2">
         Selecciona una conversación para empezar
       </p>
       
-      <p className="text-md text-muted-foreground/60">
+      <p className="text-md text-muted/60">
         Gestiona todas tus comunicaciones en un solo lugar
       </p>
     </div>

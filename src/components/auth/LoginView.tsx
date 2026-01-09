@@ -84,14 +84,14 @@ export function LoginView({ onViewChange }: LoginViewProps) {
 
   return (
      <div 
-      className="chat-wallpaper flex mx-0 md:px-40 flex-col lg:flex-row min-h-screen relative transition-opacity duration-500"
+      className="bg-background-light flex mx-0 md:px-40 flex-col lg:flex-row min-h-screen relative transition-opacity duration-500"
     >
       {/* Left side - rotating logo */}
       <div className="flex-[0.5] flex items-center justify-center overflow-hidden relative order-1 lg:order-none">
         <img
           src={logo}
           alt="Logo"
-          className="animate-spin-slow w-28 h-28 lg:w-96 lg:h-96 object-contain"
+          className="w-28 h-28 lg:w-96 lg:h-96 object-contain"
         />
       </div>
 
@@ -115,12 +115,12 @@ export function LoginView({ onViewChange }: LoginViewProps) {
 
       {/* Right side - login form */}
       <div className="flex lg:flex-[1] lg:items-center p-4 order-2 lg:order-none">
-        <Card className="w-full md:h-auto bg-background-dark backdrop-blur-sm">
+        <Card className="w-full md:h-auto bg-background backdrop-blur-sm">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-xl lg:text-2xl font-bold text-center">
+            <CardTitle className="text-muted text-xl lg:text-2xl font-bold text-center">
               Bienvenido de nuevo
             </CardTitle>
-            <CardDescription className="text-center text-sm lg:text-base">
+            <CardDescription className="text-muted text-center text-sm lg:text-base">
               Introduce tus credenciales para acceder a tu cuenta
             </CardDescription>
           </CardHeader>
@@ -135,7 +135,7 @@ export function LoginView({ onViewChange }: LoginViewProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="bg-background/80"
+                  className="text-muted bg-background/80"
                 />
               </div>
               <div className="space-y-2">
@@ -147,7 +147,7 @@ export function LoginView({ onViewChange }: LoginViewProps) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="bg-background/80"
+                  className="text-muted bg-background/80"
                 />
               </div>
 
@@ -176,7 +176,7 @@ export function LoginView({ onViewChange }: LoginViewProps) {
                 </div>
               )}
 
-              <Button type="submit" className="w-full" disabled={loading}>
+              <Button variant="secondary" type="submit" className="w-full" disabled={loading}>
                 {loading ? "Iniciando sesión..." : "Iniciar sesión"}
               </Button>
             </form>

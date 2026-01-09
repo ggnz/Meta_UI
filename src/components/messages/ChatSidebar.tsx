@@ -131,7 +131,7 @@ function formatTimestamp(timestamp: string) {
 function getMessageStatusIcon(status?: string) {
   switch (status) {
     case "queued":
-      return <Loader2 className="w-3 h-3 animate-spin text-gray-400" />;
+      return <Loader2 className="w-3 h-3 animate-spin text-gray-400 " />;
     case "sent":
       return <Check className="w-3 h-3 text-gray-400" />;
     case "delivered":
@@ -376,7 +376,7 @@ export function ChatSidebar({
       {/* Header */}
       <div className="p-4 border-b border-background-light">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-foreground">Mensajes</h2>
+          <h2 className="text-lg font-semibold text-muted">Mensajes</h2>
           <div className="flex items-center space-x-3">
             {items.some((c) => c.unreadCount > 0) && (
               <Button
@@ -389,13 +389,13 @@ export function ChatSidebar({
                 <MessageSquareDot
                   className={cn(
                     "h-4 w-4",
-                    unreadOnly ? "text-primary" : "text-foreground"
+                    unreadOnly ? "text-primary" : "text-muted"
                   )}
                 />
                 <span
                   className={cn(
                     "text-xs font-medium ml-0",
-                    unreadOnly ? "text-primary" : "text-foreground"
+                    unreadOnly ? "text-primary" : "text-muted"
                   )}
                 >
                   {items.filter((c) => c.unreadCount > 0).length}
@@ -411,26 +411,26 @@ export function ChatSidebar({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="flex items-center cursor-pointer text-foreground/60 hover:bg-background-dark"
+                  className="flex items-center cursor-pointer text-muted/60 hover:bg-background-light"
                   title="Iniciar Chat"
                   onClick={handleOpenContactsModal}
                 >
-                  <MessageSquarePlus className="w-4 h-4 text-foreground" />
+                  <MessageSquarePlus className="w-4 h-4 text-secondary " />
                 </Button>
               </DialogTrigger>
-              <DialogContent className="max-w-[50vh] max-h-[80vh] overflow-hidden">
+              <DialogContent className="max-w-[50vh] max-h-[80vh] overflow-hidden bg-background">
                 <DialogHeader>
-                  <DialogTitle>Iniciar Chat</DialogTitle>
+                  <DialogTitle className="text-lg font-semibold text-muted">Iniciar Chat</DialogTitle>
                 </DialogHeader>
 
                 {/* Contacts Search */}
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-foreground/60 h-4 w-4" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted/60 h-4 w-4" />
                   <Input
                     value={contactsSearchQuery}
                     onChange={(e) => setContactsSearchQuery(e.target.value)}
                     placeholder="Buscar contactos..."
-                    className=" bg-background-light text-foreground placeholder:text-foreground/60"
+                    className=" bg-background text-muted placeholder:text-muted/6"
                   />
                 </div>
 
@@ -439,7 +439,7 @@ export function ChatSidebar({
                   {isLoadingContacts ? (
                     <div className="flex justify-center items-center py-8">
                       <Loader2 className="w-6 h-6 animate-spin text-primary" />
-                      <span className="ml-2 text-foreground">
+                      <span className="ml-2 text-muted">
                         Cargando contactos...
                       </span>
                     </div>
@@ -458,7 +458,7 @@ export function ChatSidebar({
                           <div className="flex items-center space-x-3">
                             <Avatar className="h-10 w-10">
                               <AvatarImage src={contact.avatar} />
-                              <AvatarFallback className="bg-background text-dark-foreground">
+                              <AvatarFallback>
                                 {contact.name
                                   ?.split(" ")
                                   .map((n: string) => n[0])
@@ -466,10 +466,10 @@ export function ChatSidebar({
                               </AvatarFallback>
                             </Avatar>
                             <div className="flex-1 min-w-0">
-                              <h3 className="text-sm font-medium text-foreground truncate">
+                              <h3 className="text-sm font-medium text-muted truncate">
                                 {contact.name || "Sin nombre"}
                               </h3>
-                              <div className="flex flex-col text-xs text-foreground/60 mt-1">
+                              <div className="flex flex-col text-xs text-muted/60 mt-1">
                                 {contact.phone && (
                                   <span className="truncate">
                                     {contact.phone}
@@ -483,7 +483,7 @@ export function ChatSidebar({
                     </div>
                   ) : (
                     <div className="text-center py-8">
-                      <p className="text-foreground/60">
+                      <p className="text-muted/60">
                         {contactsSearchQuery
                           ? "No se encontraron contactos"
                           : "No hay contactos disponibles"}
@@ -498,12 +498,11 @@ export function ChatSidebar({
 
         {/* Search */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-foreground/60 h-4 w-4" />
           <Input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Buscar conversaciones..."
-            className="bg-background-light text-foreground placeholder:text-foreground/60"
+            className="bg-background text-muted placeholder:text-muted/60 border-background-dark "
           />
         </div>
       </div>
@@ -515,7 +514,7 @@ export function ChatSidebar({
             <Button
               variant="ghost"
               size="sm"
-              className="w-60 justify-between text-foreground/60 hover:bg-background-dark flex items-center"
+              className="w-60 justify-between hover:text-muted text-muted hover:bg-background-light flex items-center"
             >
               <div className="flex max-w-[120px] min-w-[160px]">
                 <Filter className="h-4 w-4 mr-1" />
@@ -538,7 +537,7 @@ export function ChatSidebar({
             {PLATFORMS.map((ch) => (
               <div
                 key={ch.value}
-                className="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-background-dark"
+                className="flex items-center space-x-3 cursor-pointer p-2 rounded hover:bg-background-light text-muted"
                 onClick={() =>
                   setSelectedPlatforms((prev) =>
                     prev.includes(ch.value)
@@ -548,7 +547,7 @@ export function ChatSidebar({
                 }
               >
                 <Checkbox
-                  className="me-2"
+                  className="me-2 "
                   checked={selectedPlatforms.includes(ch.value)}
                 />
                 {ch.icon}
@@ -561,7 +560,7 @@ export function ChatSidebar({
         <Button
           variant="ghost"
           size="sm"
-          className="w-40 text-foreground/60 hover:bg-background-dark"
+          className="w-40 hover:text-muted text-muted hover:bg-background-light"
           onClick={() =>
             setSortOrder((prev) => (prev === "recent" ? "old" : "recent"))
           }
@@ -589,7 +588,7 @@ export function ChatSidebar({
       ) : conversations.length === 0 ? (
         // Empty state
         <div className="flex flex-col items-center justify-center h-32 p-4 text-center">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted">
             No tienes conversaciones
           </p>
         </div>
@@ -602,16 +601,16 @@ export function ChatSidebar({
                 onConversationSelect(conversation.id);
               }}
               className={cn(
-                "p-4 cursor-pointer hover:bg-background-dark",
+                "p-4 cursor-pointer hover:bg-background-light",
                 activeConversationId === conversation.id &&
-                  "bg-background-light"
+                  "bg-background-dark/20"
               )}
             >
               <div className="flex items-start space-x-3">
                 <div className="relative me-2">
-                  <Avatar className="h-10 w-10 border border-background-ligh">
+                  <Avatar className="h-10 w-10 border border-background-light/20">
                     <AvatarImage src={conversation.avatar} />
-                    <AvatarFallback className="bg-background-dark text-dark-foreground">
+                    <AvatarFallback>
                       {conversation.name
                         .split(" ")
                         .map((n) => n[0])
@@ -640,17 +639,17 @@ export function ChatSidebar({
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-medium text-foreground truncate">
+                    <h3 className="text-sm font-medium text-muted truncate">
                       {conversation.name}
                     </h3>
-                    <span className="text-xs text-foreground/60">
+                    <span className="text-xs text-muted/60">
                       {formatTimestamp(conversation.timestamp)}
                     </span>
                   </div>
 
                   <div className="flex items-center justify-between mt-1">
                     <div className="flex items-center space-x-2 flex-1 min-w-0">
-                      <p className="text-sm text-foreground/70 truncate pr-2 flex-1">
+                      <p className="text-sm text-muted/70 truncate pr-2 flex-1">
                         {conversation.lastMessage}
                       </p>
                       {/* Show status icon if last message was sent by user */}

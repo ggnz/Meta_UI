@@ -719,7 +719,7 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
                           <Badge
                             key={tagId}
                             variant="secondary"
-                            className="flex items-center gap-1"
+                            className="flex items-center gap-1 text-background"
                           >
                             {tag.name}
                             <X
@@ -763,7 +763,7 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-full p-0 bg-background-light">
+                    <PopoverContent className="w-full p-0 ">
                       <Command>
                         <CommandInput placeholder="Buscar plataforma..." />
                         <CommandList>
@@ -818,7 +818,7 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
                 >
                   Cancelar
                 </Button>
-                <Button className="mb-3 mb-md-0" onClick={handleCreateContact}>
+                <Button className="mb-3 mb-md-0" onClick={handleCreateContact} variant="secondary">
                   Guardar Contacto
                 </Button>
               </DialogFooter>
@@ -858,7 +858,7 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-full md:w-[250px] p-0 bg-background-light">
+                  <PopoverContent className="w-full md:w-[250px] p-0">
                     <Command>
                       <CommandInput placeholder="Buscar organización..." />
                       <CommandList>
@@ -993,7 +993,7 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
         <ScrollArea className="h-full">
           {filteredContacts.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-64 text-center px-4">
-              <div className="w-16 h-16 bg-muted rounded-full flex items-center justify-center mb-4">
+              <div className="w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-4">
                 <MessageCircle className="w-8 h-8 text-muted-foreground" />
               </div>
               <h3 className="text-lg font-semibold mb-2">
@@ -1100,7 +1100,7 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
                               <Badge
                                 key={tag.id}
                                 variant="secondary"
-                                className="text-xs"
+                                className="text-xs text-background"
                               >
                                 {tag.name}
                               </Badge>
@@ -1155,7 +1155,7 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
                 open={isEditDialogOpen}
                 onOpenChange={setIsEditDialogOpen}
               >
-                <DialogContent className="max-w-full sm:max-w-2xl">
+                <DialogContent>
                   <DialogHeader>
                     <DialogTitle>Editar Contacto</DialogTitle>
                   </DialogHeader>
@@ -1326,7 +1326,7 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
                               <Badge
                                 key={tag.id}
                                 variant="secondary"
-                                className="flex items-center gap-1"
+                                className="flex items-center gap-1 text-background"
                               >
                                 {tag.name}
                                 <X
@@ -1430,7 +1430,7 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
                     >
                       Cancelar
                     </Button>
-                    <Button onClick={handleSaveEditContact}>
+                    <Button onClick={handleSaveEditContact} variant="secondary">
                       Guardar Cambios
                     </Button>
                   </DialogFooter>
@@ -1442,7 +1442,7 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
                 open={isDeleteDialogOpen}
                 onOpenChange={setIsDeleteDialogOpen}
               >
-                <DialogContent className="bg-background-dark border border-border rounded-md w-96 max-w-[90vw] p-0 overflow-hidden">
+                <DialogContent className="border border-border  rounded-md w-96 max-w-[90vw] p-0 overflow-hidden">
                   <DialogHeader className="p-6 pb-4">
                     <div className="text-center">
                       <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -1462,7 +1462,7 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
                   </DialogHeader>
 
                   <div className="px-6">
-                    <div className="bg-muted/30 rounded-md p-3">
+                    <div className="bg-background-light rounded-md p-3">
                       <p className="mb-2 text-sm">
                         Se eliminará permanentemente:
                       </p>
@@ -1496,9 +1496,9 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
               {/* Mobile Cards */}
               <div className="md:hidden space-y-4 mt-4 mx-4">
                 {filteredContacts.map((contact) => (
-                  <div
+                  <Card
                     key={contact.id}
-                    className="bg-background-dark border border-border rounded-lg p-4 flex flex-col gap-2"
+                    className="p-4 flex flex-col gap-2"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3">
@@ -1602,14 +1602,14 @@ export function ContactsView({ onStartConversation }: ContactsViewProps) {
                           <Badge
                             key={tag.id}
                             variant="secondary"
-                            className="text-xs"
+                            className="text-xs text-background"
                           >
                             {tag.name}
                           </Badge>
                         ))}
                       </div>
                     </div>
-                  </div>
+                  </Card>
                 ))}
               </div>
             </>

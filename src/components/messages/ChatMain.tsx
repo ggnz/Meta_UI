@@ -19,7 +19,7 @@ import { cn } from "../../lib/utils";
 import { FaWhatsapp, FaInstagram, FaFacebookF } from "react-icons/fa";
 import { getOlderMessengerMessages } from "@/api/messenger";
 import { getTemplatesByPlatform } from "@/api/templates";
-import chatWallpaper from "@/assets/chatWallpaper.png";
+import chatWallpaper from "@/assets/chatWallpaper2.png";
 
 const PLATFORM_CONFIG = {
   facebook: {
@@ -386,17 +386,17 @@ export function ChatMain({
   return (
     <div className="flex-1 flex flex-col h-[93%] bg-background-dark">
       {/* Chat Header */}
-      <div className="px-4 py-3 bg-background ps-14 lg:ps-6">
-        <div className="flex items-center justify-between">
+      <div className="px-4 py-3 bg-background ps-14 lg:ps-6 hover:bg-background/90">
+        <div className="flex items-center justify-between ">
           <div
-            className="flex items-center space-x-3 cursor-pointer p-1 w-full"
+            className="flex items-center space-x-3 cursor-pointer p-1 w-full "
             onClick={onToggleUserInfo}
             title="Información de Contacto"
           >
             <div className="relative me-3">
-              <Avatar className="h-12 w-12 border border-background-light">
+              <Avatar className="h-12 w-12 border border-background-light/20">
                 <AvatarImage src={conversation.avatar} />
-                <AvatarFallback className="bg-background-dark text-dark-foreground">
+                <AvatarFallback >
                   {conversation.name
                     .split(" ")
                     .map((n) => n[0])
@@ -412,10 +412,10 @@ export function ChatMain({
               </div>
             </div>
             <div>
-              <h2 className="text-lg font-semibold text-foreground">
+              <h2 className="text-lg font-semibold text-muted">
                 {conversation.name}
               </h2>
-              <p className="text-sm text-muted-foreground capitalize">
+              <p className="text-sm text-muted/60 font-semibold capitalize">
                 {conversation.platform}
               </p>
             </div>
@@ -426,16 +426,16 @@ export function ChatMain({
       {/* Messages Area */}
       <ScrollArea
         ref={scrollAreaRef}
-        className="flex-1 p-2 bg-background/50 relative"
+        className="flex-1 p-2 relative"
         style={{
           backgroundImage: `url(${chatWallpaper})`,
-          backgroundSize: "1800px 1000px",
+          backgroundSize: "100% 1000px",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="absolute inset-0 bg-background/30 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-background/70 pointer-events-none"></div>
 
         <div className="relative z-10">
           {stickyDate && (
@@ -469,7 +469,7 @@ export function ChatMain({
                 >
                   {showDateBubble && (
                     <div className="flex justify-center mb-2">
-                      <span className="px-3 py-1 bg-background-light/90 text-xs rounded-full backdrop-blur-sm">
+                      <span className="px-3 py-1 bg-background-light/90 text-xs text-muted rounded-full backdrop-blur-sm">
                         {formatDateBubble(msg.timestamp)}
                       </span>
                     </div>
@@ -515,7 +515,7 @@ export function ChatMain({
                           msg.sender === "user"
                             ? cn(platformConfig.bgColor, "text-white")
                             : cn(
-                                "bg-background-light/95",
+                                "bg-background-light text-muted",
                                 platformConfig.borderColor,
                                 "border-l-4"
                               ),
@@ -550,7 +550,7 @@ export function ChatMain({
 
       {/* File Preview */}
       {selectedFile && (
-        <div className="flex items-start space-x-2 h-auto border p-4 bg-background-dark px-4">
+        <div className="flex items-start space-x-2 h-auto border p-4 bg-background px-4">
           {selectedFile.type.startsWith("image/") && (
             <img
               src={uploadedFileUrl!}
@@ -583,7 +583,7 @@ export function ChatMain({
       )}
 
       {/* Message Input */}
-      <div className="px-4 py-4 pt-6 bg-background/50 flex flex-col space-y-2">
+      <div className="px-4 py-4 pt-6 bg-background flex flex-col space-y-2">
         <div className="flex items-center gap-2 relative">
           {" "}
           {/* ← Agregar gap-2 aquí */}
@@ -595,18 +595,18 @@ export function ChatMain({
             className={cn(
               "transition-colors flex-shrink-0", // ← Cambiar me-2 por flex-shrink-0
               fileTypeDropdownOpen
-                ? "bg-background text-foreground"
+                ? "bg-background-light text-foreground"
                 : "hover:bg-background-light"
             )}
           >
-            <Paperclip className="h-4 w-4" />
+            <Paperclip className="h-4 w-4 text-muted" />
           </Button>
           {fileTypeDropdownOpen && (
             <div
-              className="absolute bottom-full mb-2 left-0 bg-background-light border rounded-md shadow-lg w-48 z-50 p-2"
+              className="absolute bottom-full mb-2 left-0 bg-background border rounded-md shadow-lg w-48 z-50 p-2"
               id="file-type-dropdown"
             >
-              <label className="flex items-center rounded-md gap-2 px-3 py-2 cursor-pointer hover:bg-background-dark">
+              <label className="flex items-center rounded-md gap-2 px-3 py-2 cursor-pointer hover:bg-background-light text-muted">
                 <Images className="h-4 w-4 mr-2" />
                 Imagen
                 <input
@@ -617,7 +617,7 @@ export function ChatMain({
                   onChange={handleFileSelect}
                 />
               </label>
-              <label className="flex items-center rounded-md gap-2 px-3 py-2 cursor-pointer hover:bg-background-dark">
+              <label className="flex items-center rounded-md gap-2 px-3 py-2 cursor-pointer hover:bg-background-light text-muted">
                 <Video className="h-4 w-4 mr-2" />
                 Video
                 <input
@@ -627,7 +627,7 @@ export function ChatMain({
                   onChange={handleFileSelect}
                 />
               </label>
-              <label className="flex items-center rounded-md gap-2 px-3 py-2 cursor-pointer hover:bg-background-dark">
+              <label className="flex items-center rounded-md gap-2 px-3 py-2 cursor-pointer hover:bg-background-light text-muted">
                 <FileText className="h-4 w-4 mr-2" />
                 Documento
                 <input
@@ -641,14 +641,14 @@ export function ChatMain({
           )}
           {/* Contenedor del textarea que ocupa el espacio disponible */}
           <div className="flex-1 relative">
-            <p className="text-muted-foreground text-xs ps-3 absolute -top-5 left-0">
+            <p className="text-muted text-xs ps-3 absolute -top-5 left-0">
               Usa <strong>/</strong> para abrir plantillas
             </p>
 
             <Textarea
               ref={messageInputRef}
               placeholder="Escribir mensaje..."
-              className="w-full ps-6 pr-6 py-3 border bg-background-dark rounded-2xl focus:outline-none resize-none min-h-[44px] max-h-[100px]" 
+              className="w-full ps-6 pr-6 py-3 border-secondary bg-background text-muted placeholder:text-muted/60 rounded-2xl focus:outline-none resize-none min-h-[44px] max-h-[100px]" 
               value={message}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
@@ -659,19 +659,19 @@ export function ChatMain({
           </div>
 
           {showTemplateDropdown && filteredTemplates.length > 0 && (
-            <ul className="w-full lg:w-[600px] max-h-[300px] min-h-[80px] scrollbar-thin absolute bottom-full mb-2 bg-background-light border rounded-md p-2 overflow-y-auto z-50">
+            <ul className="w-full lg:w-[600px] max-h-[300px] min-h-[80px] scrollbar-thin absolute bottom-full mb-2 bg-background border rounded-md p-2 overflow-y-auto z-50">
               {filteredTemplates.map((t, index) => (
                 <li
                   key={index}
-                  className="p-2 rounded-md cursor-pointer hover:bg-background-dark break-words"
+                  className="p-2 rounded-md cursor-pointer break-words"
                   onClick={() => {
                     setMessage(t.content);
                     setShowTemplateDropdown(false);
                   }}
                 >
-                  <div className="p-2 rounded-md cursor-pointer hover:bg-background-dark break-words">
-                    <p className=" text-sm pe-5">/ {t.name}</p>
-                    <p className=" text-xs text-muted-foreground whitespace-pre-wrap">
+                  <div className="p-2 rounded-md cursor-pointer hover:bg-background-light break-words">
+                    <p className=" text-sm text-secondary font-semibold pe-5">/{t.name}</p>
+                    <p className=" text-xs text-muted/70 whitespace-pre-wrap">
                       {t.content}
                     </p>
                   </div>
@@ -685,7 +685,7 @@ export function ChatMain({
             disabled={!message.trim() || isLoading}
             title="Enviar"
             className={cn(
-              "h-10 w-10 rounded-full flex items-center justify-center text-foreground flex-shrink-0", 
+              "h-10 w-10 rounded-full flex items-center justify-center text-background flex-shrink-0", 
               platformConfig.bgColor,
               "hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
             )}

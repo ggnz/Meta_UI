@@ -337,19 +337,19 @@ export function SettingsModal({
       <div className="absolute inset-0" onClick={closeModal} />
 
       {/* Modal Content */}
-      <div className="relative bg-background-dark border border-border rounded-md shadow-lg w-80 max-w-[90vw] mr-5">
+      <div className="relative bg-background border border-border rounded-md shadow-lg w-80 max-w-[90vw] mr-5">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-border">
           <div className="flex items-center gap-3 flex-1">
-            <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
               {renderUserIcon()}
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-foreground">{user.name}</h3>
-              <p className="text-sm text-muted-foreground">
+              <h3 className="font-semibold text-muted">{user.name}</h3>
+              <p className="text-sm text-muted">
                 {getRoleDisplayName(user.role)}
               </p>
-              <p className="text-xs text-foreground mt-4 flex items-center gap-1">
+              <p className="text-xs text-secondary mt-4 flex items-center gap-1 font-semibold">
                 <Building className="w-4 h-4" />
                 {organizationData.name}
               </p>
@@ -363,7 +363,7 @@ export function SettingsModal({
             {/* Settings Options */}
             <div className="p-2">
               <button
-                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-muted rounded-md transition-colors"
+                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-muted hover:bg-background-light rounded-md transition-colors"
                 onClick={() => {
                   setActiveSection("profile");
                   setError(null);
@@ -374,7 +374,7 @@ export function SettingsModal({
               </button>
 
               <button
-                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-muted rounded-md transition-colors"
+                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-muted hover:bg-background-light rounded-md transition-colors"
                 onClick={() => setActiveSection("password")}
               >
                 <KeyRound className="w-4 h-4" />
@@ -383,7 +383,7 @@ export function SettingsModal({
 
               {user.role === "admin" && (
                 <button
-                  className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-muted rounded-md transition-colors"
+                  className="w-full flex items-center gap-3 px-3 py-2 text-sm text-muted hover:bg-background-light rounded-md transition-colors"
                   onClick={() => {
                     setActiveSection("organization");
                     setError(null);
@@ -398,7 +398,7 @@ export function SettingsModal({
             {/* Footer - Logout */}
             <div className="p-2 border-t border-border">
               <button
-                className="w-full flex items-center gap-3 px-3 py-2 text-sm text-red-600 hover:bg-muted rounded-md"
+                className="w-full flex items-center gap-3 font-semibold px-3 py-2 text-sm text-red-600 hover:bg-background-light rounded-md"
                 onClick={handleLogout}
               >
                 <LogOut className="w-4 h-4" />
@@ -412,7 +412,7 @@ export function SettingsModal({
         {activeSection === "profile" && (
           <div className="p-2">
             <button
-              className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-muted rounded-md transition-colors"
+              className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-background-light rounded-md transition-colors"
               onClick={() => {
                 setActiveSection("menu");
                 setError(null);
@@ -484,7 +484,7 @@ export function SettingsModal({
         {activeSection === "password" && (
           <div className="p-2">
             <button
-              className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-muted rounded-md transition-colors"
+              className="w-full flex items-center gap-3 px-3 py-2 text-sm text-foreground hover:bg-background-light rounded-md transition-colors"
               onClick={() => {
                 setActiveSection("menu");
                 setError(null);
@@ -702,7 +702,7 @@ export function SettingsModal({
                       open={isDeleteConfirmOpen}
                       onOpenChange={setIsDeleteConfirmOpen}
                     >
-                      <DialogContent className="bg-background-dark border border-border rounded-md w-96 max-w-[90vw] p-0 overflow-hidden">
+                      <DialogContent className="border border-border rounded-md w-96 max-w-[90vw] p-0 overflow-hidden">
                         <DialogHeader className="p-6 pb-4">
                           <div className="text-center">
                             <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
@@ -722,7 +722,7 @@ export function SettingsModal({
                         </DialogHeader>
 
                         <div className="px-6">
-                          <div className="bg-muted/30 rounded-md p-3">
+                          <div className="bg-background-light rounded-md p-3">
                             <p className="mb-2 text-sm">
                               Se eliminarán permanentemente:
                             </p>
