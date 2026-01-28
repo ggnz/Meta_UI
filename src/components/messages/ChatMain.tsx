@@ -434,9 +434,10 @@ export function ChatMain({
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
+          opacity: 0.9,
         }}
       >
-        <div className="absolute inset-0 bg-background/70 pointer-events-none"></div>
+        <div className="absolute inset-0 bg-background pointer-events-none"></div>
 
         <div className="relative z-10">
           {stickyDate && (
@@ -681,7 +682,6 @@ export function ChatMain({
             </ul>
           )}
 
-<<<<<<< HEAD
           {!message.trim() ? (
             <button
               onClick={() => {
@@ -691,7 +691,7 @@ export function ChatMain({
               disabled={isLoading}
               title="Grabar audio"
               className={cn(
-                "h-10 w-10 rounded-full flex items-center justify-center text-foreground flex-shrink-0", 
+                "h-10 w-10 rounded-full flex items-center justify-center text-background-light flex-shrink-0", 
                 platformConfig.bgColor,
                 "hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
               )}
@@ -704,7 +704,7 @@ export function ChatMain({
               disabled={!message.trim() || isLoading}
               title="Enviar"
               className={cn(
-                "h-10 w-10 rounded-full flex items-center justify-center text-foreground flex-shrink-0", 
+                "h-10 w-10 rounded-full flex items-center justify-center text-background-light flex-shrink-0", 
                 platformConfig.bgColor,
                 "hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
               )}
@@ -712,20 +712,6 @@ export function ChatMain({
               <Send className="h-5 w-5" />
             </button>
           )}
-=======
-          <button
-            onClick={handleSendMessage}
-            disabled={!message.trim() || isLoading}
-            title="Enviar"
-            className={cn(
-              "h-10 w-10 rounded-full flex items-center justify-center text-background flex-shrink-0", 
-              platformConfig.bgColor,
-              "hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed"
-            )}
-          >
-            <Send className="h-5 w-5" />
-          </button>
->>>>>>> fbd219d9a205b0ae7cb1c05bd8e161bbfc910e23
         </div>
       </div>
     </div>

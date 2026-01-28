@@ -332,14 +332,20 @@ export function SettingsModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-end pt-12">
+    <div className="fixed inset-0 z-20 flex items-start justify-center md:justify-start md:ps-20">
       {/* Backdrop */}
       <div className="absolute inset-0" onClick={closeModal} />
 
       {/* Modal Content */}
-      <div className="relative bg-background border border-border rounded-md shadow-lg w-80 max-w-[90vw] mr-5">
+      <div
+        className="
+          relative bg-background border border-border shadow-xl
+          w-full h-[100dvh] max-w-none rounded-none
+          md:w-80 md:h-auto md:max-w-[90vw] md:rounded-r-md md:mr-5
+        "
+      >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-border">
+        <div className="flex items-center justify-between p-4 border-b border-border md:p-4">
           <div className="flex items-center gap-3 flex-1">
             <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
               {renderUserIcon()}
@@ -359,7 +365,7 @@ export function SettingsModal({
 
         {/* Menu Principal */}
         {activeSection === "menu" && (
-          <>
+          <div className="flex-1 overflow-y-auto">
             {/* Settings Options */}
             <div className="p-2">
               <button
@@ -405,7 +411,7 @@ export function SettingsModal({
                 Salir
               </button>
             </div>
-          </>
+          </div>
         )}
 
         {/* Formulario de Edición de Perfil */}
@@ -558,7 +564,7 @@ export function SettingsModal({
               </div>
 
               {/* En la sección de contraseña, después de los inputs */}
-              <div className="bg-muted/20 rounded-md p-3 mt-2">
+              <div className="bg-background-light rounded-md p-3 mt-2">
                 <p className="text-xs font-medium text-foreground mb-2">
                   Requisitos de la contraseña:
                 </p>
@@ -568,7 +574,7 @@ export function SettingsModal({
                       className={`w-1.5 h-1.5 rounded-full ${
                         passwordData.newPassword.length >= 6
                           ? "bg-green-500"
-                          : "bg-muted-foreground"
+                          : "bg-muted"
                       }`}
                     ></div>
                     <span>Mínimo 6 caracteres</span>
@@ -578,7 +584,7 @@ export function SettingsModal({
                       className={`w-1.5 h-1.5 rounded-full ${
                         /[A-Z]/.test(passwordData.newPassword)
                           ? "bg-green-500"
-                          : "bg-muted-foreground"
+                          : "bg-muted"
                       }`}
                     ></div>
                     <span>1 letra mayúscula</span>
@@ -588,7 +594,7 @@ export function SettingsModal({
                       className={`w-1.5 h-1.5 rounded-full ${
                         /[a-z]/.test(passwordData.newPassword)
                           ? "bg-green-500"
-                          : "bg-muted-foreground"
+                          : "bg-muted"
                       }`}
                     ></div>
                     <span>1 letra minúscula</span>
@@ -598,7 +604,7 @@ export function SettingsModal({
                       className={`w-1.5 h-1.5 rounded-full ${
                         /[0-9]/.test(passwordData.newPassword)
                           ? "bg-green-500"
-                          : "bg-muted-foreground"
+                          : "bg-muted"
                       }`}
                     ></div>
                     <span>1 número</span>
@@ -608,7 +614,7 @@ export function SettingsModal({
                       className={`w-1.5 h-1.5 rounded-full ${
                         /[!@#$%^&*]/.test(passwordData.newPassword)
                           ? "bg-green-500"
-                          : "bg-muted-foreground"
+                          : "bg-muted"
                       }`}
                     ></div>
                     <span>1 carácter especial (!@#$%^&*)</span>

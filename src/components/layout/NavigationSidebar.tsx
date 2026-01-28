@@ -7,6 +7,12 @@ import {
   Tags,
   Building,
   FileText,
+  Contact,
+  User as UserIcon,
+  Star,
+  Crown,
+  User,
+  MoreVertical,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -20,6 +26,9 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { DialogDescription } from "@radix-ui/react-dialog";
+import { SettingsModal } from "./SettingsModal";
+
+/* ===================== NAV CONFIG ===================== */
 
 const navigationItems = [
   {
@@ -32,7 +41,7 @@ const navigationItems = [
   {
     id: "contacts",
     label: "Contactos",
-    icon: Users,
+    icon: Contact,
     path: "/contacts",
     roles: ["admin", "dueno", "colaborador"],
   },
@@ -70,44 +79,104 @@ const navigationItems = [
     icon: Building,
     path: "/organizations",
     roles: ["dueno"],
-  },  
+  },
 ];
 
+interface UserData {
+  id: string;
+  name: string;
+  email: string;
+  role: string;
+}
+
+/* ===================== COMPONENT ===================== */
+
 export function NavigationSidebar() {
+  const MOBILE_MAX_ITEMS = 4;
+
   const location = useLocation();
   const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
-  const [role, setRole] = useState<string>(""); 
+  const [role, setRole] = useState<string>("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState<UserData | null>(null);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
   const totalUnread = useUnreadBadge();
 
+  /* ===================== EFFECTS ===================== */
+
   useEffect(() => {
-    const userRole = localStorage.getItem("role");
-    if (userRole) {
-      setRole(userRole);    
-    }
+    const storedUser = localStorage.getItem("user");
+    const storedRole = localStorage.getItem("role");
+
+    if (storedUser) setUser(JSON.parse(storedUser));
+    if (storedRole) setRole(storedRole);
   }, []);
 
-  const allowedItems = navigationItems.filter((item) =>
-    item.roles.includes(role)
+  useEffect(() => {
+    setIsSettingsOpen(false);
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const close = () => setMobileMenuOpen(false);
+    window.addEventListener("click", close);
+    return () => window.removeEventListener("click", close);
+  }, [mobileMenuOpen]);
+
+  /* ===================== DERIVED ===================== */
+
+  const allowedItems = navigationItems.filter((i) =>
+    i.roles.includes(role)
   );
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-    localStorage.removeItem("role");
+  const mobileNavItems = allowedItems.slice(0, MOBILE_MAX_ITEMS);
+  const mobileMoreItems = allowedItems.slice(MOBILE_MAX_ITEMS);
 
+  /* ===================== ACTIONS ===================== */
+
+  const handleLogout = () => {
+    localStorage.clear();
     setOpen(false);
     navigate("/login");
   };
 
+  const renderUserIcon = () => {
+    switch (user?.role) {
+      case "admin":
+        return <Star className="w-4 h-4" />;
+      case "dueno":
+        return <Crown className="w-4 h-4" />;
+      case "colaborador":
+        return <User className="w-4 h-4" />;
+      default:
+        return <UserIcon className="w-4 h-4" />;
+    }
+  };
+
+  /* ===================== JSX ===================== */
+
   return (
     <>
-      {/* Desktop Sidebar */}
+      {/* ===================== DESKTOP SIDEBAR ===================== */}
       <div className="hidden md:flex flex-col w-20 bg-background-dark border-r border-border h-full">
-        {/* Nav items */}
-        <div className="flex-1 flex flex-col py-0">
+        {user && (
+          <button
+            onClick={() => setIsSettingsOpen(true)}
+            className="w-full p-4 flex flex-col items-center gap-1 text-xs text-background hover:bg-background/20"
+          >
+            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+              {renderUserIcon()}
+            </div>
+            <span>Perfil</span>
+          </button>
+        )}
+
+        <div className="flex-1 flex flex-col">
           {allowedItems.map((item) => {
             const isActive = location.pathname === item.path;
             return (
@@ -115,87 +184,122 @@ export function NavigationSidebar() {
                 key={item.id}
                 to={item.path}
                 className={cn(
-                  "w-full p-4 flex flex-col items-center gap-1 text-xs transition-colors group",
-                  "hover:bg-background/20 hover:text-primary",
+                  "w-full p-4 flex flex-col items-center gap-1 text-xs transition-colors",
                   isActive
                     ? "bg-background/10 text-background border-r-4 border-primary"
-                    : "text-background"
+                    : "text-background hover:bg-background/20 hover:text-primary"
                 )}
-                title={item.label}
               >
-                <div className="relative">
-                  <item.icon className="w-5 h-5" />
-                  {item.id === "messages" && totalUnread > 0 && (
-                    <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full" />
-                  )}
-                </div>
-                <span className="truncate">{item.label}</span>
+                <item.icon className="w-5 h-5" />
+                <span>{item.label}</span>
               </Link>
             );
           })}
         </div>
 
-        {/* Logout */}
-        <div className="border-t border-border p-4">
-          <button
-            onClick={() => setOpen(true)}
-            className="w-full p-2 flex flex-col items-center gap-1 text-xs text-background hover:bg-background/50 hover:text-destructive transition-colors rounded-md"
-          >
-            <LogOut className="w-4 h-4" />
-            <span>Salir</span>
-          </button>
-        </div>
+        <button
+          onClick={() => setOpen(true)}
+          className="w-full p-4 flex flex-col items-center gap-1 text-xs text-background hover:bg-background/20 hover:text-destructive"
+        >
+          <LogOut className="w-4 h-4" />
+          <span>Salir</span>
+        </button>
       </div>
 
-      {/* Mobile Bottom Navbar */}
+      {/* ===================== MOBILE NAVBAR ===================== */}
       <div className="fixed bottom-0 left-0 w-full bg-background-dark border-t border-border flex justify-around md:hidden z-50">
-        {allowedItems.map((item) => {
+
+        {mobileNavItems.map((item) => {
           const isActive = location.pathname === item.path;
           return (
             <Link
               key={item.id}
               to={item.path}
+              onClick={() => setMobileMenuOpen(false)}
               className={cn(
-                "flex text-sidebar-foreground flex-col items-center justify-center p-2 text-xs transition-colors",
-                isActive
-                  ? "text-primary"
-                  : "text-background hover:text-primary"
+                "p-3",
+                isActive ? "text-primary" : "text-background"
               )}
-              title={item.label}
             >
               <div className="relative">
                 <item.icon className="w-5 h-5" />
                 {item.id === "messages" && totalUnread > 0 && (
-                  <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full" />
+                  <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
                 )}
               </div>
-               {/*<span className="truncate text-[10px]">{item.label}</span>*/}
             </Link>
           );
         })}
 
-        {/* Logout icon */}
-        <button
-          onClick={() => setOpen(true)}
-          className="hidden sm:flex flex-col items-center justify-center p-2 text-background hover:text-destructive transition-colors"
-          title="Salir"
-        >
-          <LogOut className="w-5 h-5" />
-          <span className="truncate text-[10px]">Salir</span>
-        </button>
+        {mobileMoreItems.length > 0 && (
+          <div className="relative">
+            <button
+            title="Más"
+              onClick={(e) => {
+                e.stopPropagation();
+                setMobileMenuOpen((v) => !v);
+              }}
+              className="p-3 text-background"
+            >
+              <MoreVertical className="w-5 h-5" />
+            </button>
+
+            {mobileMenuOpen && (
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className="absolute bottom-14 right-0 w-56 bg-background border border-border rounded-md shadow-xl"
+              >
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setIsSettingsOpen(true);
+                  }}
+                  className="w-full px-4 py-3 flex items-center gap-3 text-sm hover:bg-background/20"
+                >
+                  <UserIcon className="w-4 h-4" />
+                  Perfil
+                </button>
+
+                {mobileMoreItems.map((item) => (
+                  <Link
+                    key={item.id}
+                    to={item.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="w-full px-4 py-3 flex items-center gap-3 text-sm hover:bg-background/20"
+                  >
+                    <item.icon className="w-4 h-4" />
+                    {item.label}
+                  </Link>
+                ))}
+
+                <div className="border-t border-border" />
+
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setOpen(true);
+                  }}
+                  className="w-full px-4 py-3 flex items-center gap-3 text-sm text-destructive hover:bg-background/20"
+                >
+                  <LogOut className="w-4 h-4" />
+                  Salir
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
-      {/* Logout Modal */}
+      {/* ===================== LOGOUT DIALOG ===================== */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>¿Seguro que quieres salir?</DialogTitle>
             <DialogDescription>
-              Al salir, tu sesión se cerrará y regresarás a la página de inicio
-              de sesión.
+              Al salir, tu sesión se cerrará.
             </DialogDescription>
           </DialogHeader>
-          <DialogFooter className="flex justify-end gap-2">
+          <DialogFooter>
             <Button variant="outline" onClick={() => setOpen(false)}>
               Cancelar
             </Button>
@@ -205,6 +309,16 @@ export function NavigationSidebar() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* ===================== SETTINGS MODAL ===================== */}
+      {isSettingsOpen && (
+        <SettingsModal
+          isOpen={isSettingsOpen}
+          onClose={() => setIsSettingsOpen(false)}
+          user={user}
+          onUserUpdate={setUser}
+        />
+      )}
     </>
   );
 }

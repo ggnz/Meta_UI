@@ -228,8 +228,8 @@ export function RegisterView({ onViewChange }: RegisterViewProps) {
   };
 
   return (
-    <div className="bg-background-light flex items-center justify-center min-h-full bg-background p-4">
-      <Card className="w-full max-w-md">
+    <div className="bg-background-light flex items-center justify-center min-h-full  p-4">
+      <Card className="w-full max-w-md bg-background">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
             {currentStep === "organization"

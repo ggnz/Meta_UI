@@ -750,7 +750,7 @@ export function MetaTemplatesView() {
                                 <div className="space-y-4">
                                   <div>
                                     <Label>Contenido</Label>
-                                    <p className="text-sm mt-1 p-3 bg-muted rounded-md">
+                                    <p className="text-sm mt-1 p-3 bg-background-light rounded-md">
                                       {template.content}
                                     </p>
                                   </div>

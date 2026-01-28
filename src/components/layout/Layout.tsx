@@ -26,14 +26,11 @@ export function Layout({ children }: LayoutProps) {
 
   return (
     <div className="flex flex-col h-screen bg-background overflow-hidden">
-      <Navbar onViewChange={handleViewChange} />
+      {/* <Navbar onViewChange={handleViewChange} />*/}
       <div className="flex flex-1 overflow-hidden">
         {/* Hide navigation sidebar for auth views */}
         {!isAuthView && (
-          <NavigationSidebar 
-            activeView={currentView}
-            onViewChange={handleViewChange}
-          />
+          <NavigationSidebar />
         )}
         <div className="flex-1 overflow-hidden md:h-auto">
           {children}
